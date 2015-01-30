@@ -37,7 +37,7 @@ public:
     {}
 
     Delegate() 
-        : fpCallee(0L)
+        : fpCallee(nullptr)
         , fpCallbackFunction(&nullfun)
     {}
     
@@ -90,7 +90,7 @@ struct DelegateFactory
     template<return_type (*TFnctPtr)(params...)>
     inline static Delegate<return_type(params...)> CreateForFunction()
     {
-        return Delegate<return_type(params...)>(0L, &DelegateFactory::FunctionCaller<TFnctPtr>);
+        return Delegate<return_type(params...)>(nullptr, &DelegateFactory::FunctionCaller<TFnctPtr>);
     }
 };
 /**
