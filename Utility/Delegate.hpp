@@ -9,13 +9,18 @@
  * \example 
  * 
  *
- * struct A { void fun(int,int) {} };
- * 
+ * struct A { void fun(int,int); };
+ * void g_fun(int,int);
+ *
  * A a;
- * Delegate<void(int,int)> d = DELEGATE(A::fun, a);
+ * Delegate<void(int,int)> d = DELEGATE(&A::fun, &a);
  * d(1,3); // Calls a.fun(1,3) !
  *
+ * Delegate<void(int,int)> dg = DELEGATE2(&g_fun);
+ * dg(1,3); // Calls g_fun(1,3) !
  *
+ * Delegate<int(string)> d_def;
+ * d_def("hello"); // Does nothing; default delegate is empty function
  */
  
 template<typename return_type, typename... params>
@@ -31,6 +36,11 @@ public:
         , fpCallbackFunction(function)
     {}
 
+    Delegate() 
+        : fpCallee(0L)
+        , fpCallbackFunction(&nullfun)
+    {}
+    
     return_type operator()(params... xs) const
     {
         return (*fpCallbackFunction)(fpCallee, xs...);
@@ -42,10 +52,13 @@ public:
                && (fpCallbackFunction == other.fpCallbackFunction);
     }
 
+
 private:
 
     void* fpCallee;
     Pointer2Function fpCallbackFunction;
+    
+    static return_type nullfun(void*, params...) {}
 };
 
 /**
