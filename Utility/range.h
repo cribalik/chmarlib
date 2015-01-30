@@ -1,5 +1,16 @@
 #include <utility>
 
+/* 
+ * 
+ * Classes: 
+ *			range Allows range-based for loops for integers. Example for (int i : range(-2,4)) loops i = -2,-1,0,1,2,3
+ *			prange Same as 'range' above, but only for positive integers
+ *			xrange<T> Same as 'range' above but for any type T.
+ *			
+ *			revrange Same as 'range' but for reversed ranges. For example: for (int i : revrange(4, -2)) loops i = 3,2,1,0,-1,-2
+ *			xrevrange<T> Same as 'revrange' above but for any type T.
+ */
+
 template <typename T> class xrange;
 template <typename T> typename xrange<T>::iterator begin(xrange<T>& r);
 template <typename T> typename xrange<T>::iterator end(xrange<T>& r);
@@ -9,7 +20,7 @@ struct xrange
 {
 	T from, to;
 	xrange(T from, T to) : from(from), to(to) {}
-	xrange(T to) : from(0), to(to) {}
+	xrange(T to) : from(T()), to(to) {}
 private:
 	struct iterator {
 		T val;
@@ -89,4 +100,3 @@ typedef xrange<int> range;
 typedef xrange<std::size_t> prange;
 
 typedef xrevrange<int> revrange;
-typedef xrevrange<std::size_t> prevrange;
