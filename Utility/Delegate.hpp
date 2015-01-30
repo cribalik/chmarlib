@@ -4,7 +4,20 @@
  * \tparam return_type  return type of the function that gets captured
  * \tparam params       variadic template list for possible arguments
  *                      of the captured function
+ *
+ *
+ * \example 
+ * 
+ *
+ * struct A { void fun(int,int) {} };
+ * 
+ * A a;
+ * Delegate<void(int,int)> d = DELEGATE(A::fun, a);
+ * d(1,3); // Calls a.fun(1,3) !
+ *
+ *
  */
+ 
 template<typename return_type, typename... params>
 class Delegate;
 
