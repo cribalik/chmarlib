@@ -39,8 +39,11 @@ public:
 	}
 	Matrix& operator= (const Matrix& m) noexcept {
 		std::copy(m._data, m._end, _data);
+		return *this;
 	}
 	void fill(const T& t) {std::fill(_data, _end, t);}
+	bool operator==(const Matrix& m) const noexcept {return std::equal(_data, _end, m._data);}
+	bool operator!=(const Matrix& m) const noexcept {return !((*this)==m);}
 	std::size_t rows() const noexcept {return (_end-_data)/colsize;}
 	std::size_t cols() const noexcept {return colsize;}
 	T* operator[] (std::size_t i) noexcept {return _data + i*colsize;}
@@ -48,6 +51,10 @@ public:
 	T& operator() (std::size_t i, std::size_t j) noexcept {return _data[i*colsize + j];}
 	const T& operator() (std::size_t i, std::size_t j) const noexcept {return _data[i*colsize + j];}
 	~Matrix() noexcept {delete [] _data;}
+	T* begin() {return _data;}
+	T* end() {return _end;}
+	const T* begin() const {return _data;}
+	const T* end() const {return _end;}
 
 private:
 	friend std::ostream& operator<< <>(std::ostream& os, const Matrix<T>& m);
