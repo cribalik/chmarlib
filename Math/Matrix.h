@@ -40,6 +40,7 @@ public:
 	Matrix& operator= (const Matrix& m) noexcept {
 		std::copy(m._data, m._end, _data);
 	}
+	void fill(const T& t) {std::fill(_data, _end, t);}
 	std::size_t rows() const noexcept {return (_end-_data)/colsize;}
 	std::size_t cols() const noexcept {return colsize;}
 	T* operator[] (std::size_t i) noexcept {return _data + i*colsize;}
