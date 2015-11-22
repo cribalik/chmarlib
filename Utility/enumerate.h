@@ -1,5 +1,13 @@
 #include <cstddef>
 
+/*
+ * Example: 
+ *      for (auto x : container) {
+ *          x.i; // index
+ *          ++x.v; // value reference
+ *      }
+ *
+ */
 namespace detail {
     template<class T>
     struct EnumWrapper {
