@@ -2,7 +2,7 @@
 
 /*
  * Example: 
- *      for (auto x : container) {
+ *      for (auto x : enumerate(container)) {
  *          x.i; // index
  *          ++x.v; // value reference
  *      }
